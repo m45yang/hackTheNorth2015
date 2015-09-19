@@ -4,8 +4,11 @@ import indicoio
  
 app = Flask(__name__)
  
+indicoio.config.api_key = 'e77398fb1e34de03ac0b22d09d5fd21a' 
+
 @app.route("/", methods=['GET'])
 def home():
+	print(indicoio.sentiment('indico is so easy to use!'))
 	return render_template('home.html')
 
 @app.route("/search", methods=['POST'])
