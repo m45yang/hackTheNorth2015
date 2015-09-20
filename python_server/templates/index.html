@@ -52,15 +52,15 @@
 						<div class="panel-body">
 						<!-- form section (ADDINPUT.JS) -->
 							<div class="form-group">
-								<form action="{{ url_for('search') }}" method="POST">
+								<form action="{{ url_for('search') }}">
 									<div id="dynamicInput">
 										<label for="searchName">Search Name</label>
 										<input type="text" class="form-control" name="searchName" required/>
 										<div class="checkbox">
-										  <label><input type="checkbox" value=""><i class="fa fa-reddit"></i> Reddit</label>
+										  <label><input type="checkbox" value="true" name="reddit"><i class="fa fa-reddit"></i> Reddit</label>
 										</div>
 										<div class="checkbox">
-										  <label><input type="checkbox" value=""><i class="fa fa-twitter"></i> Twitter</label>
+										  <label><input type="checkbox" name="twitter" value="true"><i class="fa fa-twitter"></i> Twitter</label>
 										</div>
 									</div>
 									<div id="resultText" class="text-center" style="display:none"> 
