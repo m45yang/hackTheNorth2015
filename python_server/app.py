@@ -37,7 +37,7 @@ def search():
 		for comment in flat_comments:
 			commentList.append(comment.body)
 		print("Grabbing comments from reddit thread: " + submission.short_link)
-		if (searchSubmissionInd == SUBMISSION_SEARCH_LIMIT):
+		if (searchSubmissionInd +1 == SUBMISSION_SEARCH_LIMIT):
 			break
 	score = statistics.mean(indicoio.sentiment_hq(commentList))
 	return jsonify(searchName = searchName, score = score)
