@@ -55,13 +55,16 @@
 								<form action="{{ url_for('search') }}" method="POST">
 									<label for="searchName">Search Name</label>
 									<input type="text" class="form-control" name="searchName" required/>
-									<label><i class="fa fa-reddit"></i> Reddit</label>
-								  <label><i class="fa fa-twitter"></i> Twitter</label>
+									<label for="reddit"><i class="fa fa-reddit"></i> Reddit</label>
+									<input type="checkbox" value="true" name="reddit">
+								  <label for="twitter"><i class="fa fa-twitter"></i> Twitter</label>
+								  <input type="checkbox" value="true" name="twitter">
 									<button id="searchSubmit" type="submit" class="btn btn-danger btn-lg btn-block mt25"> Submit! </button>
 									<div id="resultText" class="text-center" style="display:none"> 
 										<h3>Your search returned a sentiment value of:</h3>
 									</div>
-									<div id="result" class="text-center" style="display:none"></div>
+									<div id="result" class="text-center" style="display:none, font-size:20px"></div>
+									<div id="topAndBottom"></div>
 								</form>
 							</div>
 						</div>
@@ -80,7 +83,7 @@
 					</div>
 
 					<div class="panel-body">
-						<div id="message"><h1> {{ score }} </h1></div>
+						<div id="message"><h3> {{ score }} </h3></div>
 					</div>
 				</div>
 

@@ -22,6 +22,7 @@ SUBMISSION_SEARCH_LIMIT = 5
 NUMBER_TWEETS = 50
 RECENT_MESSAGE = 0
 UPDATE = 0
+TOP_AND_BOTTOM = []
 
 consumer_key='2X3zyVXZEyES5Ks4gdgIH7rJb'
 consumer_secret='2PpVLZNyzFE8AT9TDPAt9cdr1C7fC4zDIQ91PBG3oXdT5K8yY0'
@@ -35,15 +36,24 @@ def home():
 	score = []
 	for message in messages.find():
 		score.append(float(message["value"]))
-	score = statistics.mean(score)
-	return render_template('index.html', score = score)
+	score = statistics.mean(score) * 100
+	score = "{0:.2f}".format(score)
+	return render_template('index.html', score = 'Score for Hack the North: ' + score + '%')
 
 @app.route("/search", methods=['POST'])
 def search():
+	score = 0
 	searchName = request.form["searchName"]
-	score = (reddit_search(searchName) + tweety_search(searchName)) / 2 * 100
+	reditTrue = request.form["reddit"]
+	twitterTrue = request.form["twitter"]
+	if ((reditTrue == "1") and (twitterTrue == "1")):
+		score = (reddit_search(searchName) + tweety_search(searchName)) / 2 * 100
+	elif (reditTrue == "1"):
+		score = reddit_search(searchName) * 100
+	elif (twitterTrue == "1"):
+		score = tweety_search(searchName) * 100
 	score = "{0:.2f}".format(score)
-	return jsonify(searchName = searchName, score = score)
+	return jsonify(searchName = searchName, score = score + '%', tb = TOP_AND_BOTTOM)
 
 @app.route('/sms', methods=['GET'])
 def show():
@@ -67,10 +77,11 @@ def sms():
 		"value": value
 	}
 	messages.insert_one(data)
-	print('here1')
-	UPDATE = 1
-	print('here2')
 	return str(response)
+
+@app.route('/graph', methods=['GET'])
+def graph():
+	return render_template('animated_graph.html')
 
 @app.route("/test_check", methods=['GET','POST'])
 def test_check():
@@ -96,7 +107,9 @@ def reddit_search(searchName):
 		print("Grabbing comments from reddit thread: " + submission.short_link)
 		if (searchSubmissionInd +1 == SUBMISSION_SEARCH_LIMIT):
 			break
-	score = statistics.mean(indicoio.sentiment_hq(commentList))
+	score = indicoio.sentiment_hq(commentList)
+	top_and_bottom(commentList, score)
+	score = statistics.mean(score)
 	return score
 
 def tweety_search(searchName):
@@ -104,8 +117,42 @@ def tweety_search(searchName):
 	search = api.GetSearch(term=searchName, lang='en', result_type='recent', count=NUMBER_TWEETS, max_id='')
 	for t in search:
 		tweet_list.append(t.text.encode('utf-8'))
-	score = statistics.mean(indicoio.sentiment_hq(tweet_list))
+	score = indicoio.sentiment_hq(tweet_list)
+	top_and_bottom(tweet_list, score)
+	score = statistics.mean(score)
 	return score
+
+def top_and_bottom(commentList, score):
+	temp = list(commentList)
+	temp.sort()
+	length = len(temp)
+
+	bottom = 0
+	secondBot = 0
+	thirdBot = 0
+	Top = 0
+	secondTop = 0
+	thirdTop = 0
+
+	index=0
+	for i in score:
+		if (temp[0] == i):
+			bottom = index
+		elif (temp[1] == i):
+			secondBot = index
+		elif (temp[2] == i):
+			thirdBot = index
+		elif (temp[length-3] == i):
+			thirdTop = index
+		elif(temp[length-2] == i):
+			secondTop = index
+		elif(temp[length-1] == i):
+			Top = index
+		index = index + 1
+
+	TOP_AND_BOTTOM = []
+	TOP_AND_BOTTOM = [commentList[bottom], commentList[secondBot], commentList[thirdBot], commentList[thirdTop], commentList[secondTop], commentList[Top]]
+
 
 if __name__ == "__main__":
 	app.run(debug=True)
