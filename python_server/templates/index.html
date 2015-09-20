@@ -28,13 +28,11 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		<div class = "banner">
-			<img src="/static/headerlogo.png">
+			<a href="{{url_for('home')}}"><img src="/static/headerlogo.png"></a>
 		</div>
 		<div class="navbar">
 			<ul>
-				<li class="home"><a href="index.html">Home</a></li>
-				<li class="about"><a href="about.html">About</a></li>
-				<li class="contact"><a href="contact.html">Contact</a></li>
+				<li class="home"><a href="{{url_for('home')}}">Home</a></li>
 			</ul>
 		</div>
 	</head>
