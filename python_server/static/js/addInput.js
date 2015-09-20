@@ -1,7 +1,10 @@
 $(document).ready(function() {
 	$("#searchSubmit").on('click', function (event) {
 		event.preventDefault();
-		$(this).unbind('click').text('Loading...');
+
+		$("#resultText").fadeOut();
+		$("#result").fadeOut();
+		$(this).text('Loading...');
 
 		var searchName = $('input[name="searchName"]').val();
 
@@ -12,8 +15,10 @@ $(document).ready(function() {
 				searchName : searchName
 			},
 			success: function(result) {
-				parsed = $.parseJSON(result);
-				$("#result").html(parsed.score);
+				$("#resultText").fadeIn();
+				$("#result").html(result.score);
+				$("#result").fadeIn();
+				$(this).val('Sentimentalize!');
 			}
 		});
 	});

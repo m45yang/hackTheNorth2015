@@ -1,4 +1,4 @@
-from flask import Flask, request, session, g, redirect, url_for, abort, \
+from flask import Flask, jsonify, request, session, g, redirect, url_for, abort, \
 	 render_template, flash
 from twilio import twiml
 import pymongo
@@ -37,12 +37,12 @@ def search():
 		flat_comments = praw.helpers.flatten_tree(submission.comments)
 		for comment in flat_comments:
 			commentList.append(comment.body)
-		print(commentList)
+		print("Grabbing comments from reddit thread: " + submission.short_link)
 		searchSubmissionInd += 1
 		if (searchSubmissionInd == SUBMISSION_SEARCH_LIMIT):
 			break
 	score = statistics.mean(indicoio.sentiment_hq(commentList))
-	return flaskjsonify(searchName = searchName, score = score)
+	return jsonify(searchName = searchName, score = score)
 
 @app.route('/sms', methods=['GET'])
 def show():
