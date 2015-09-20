@@ -31,14 +31,12 @@ def search():
 	submissions = r.search(searchName)
 	score = []
 	commentList = []
-	searchSubmissionInd = 0
-	for submission in submissions:
+	for searchSubmissionInd, submission in enumerate(submissions):
 		submission.replace_more_comments(limit=1, threshold=1)
 		flat_comments = praw.helpers.flatten_tree(submission.comments)
 		for comment in flat_comments:
 			commentList.append(comment.body)
 		print("Grabbing comments from reddit thread: " + submission.short_link)
-		searchSubmissionInd += 1
 		if (searchSubmissionInd == SUBMISSION_SEARCH_LIMIT):
 			break
 	score = statistics.mean(indicoio.sentiment_hq(commentList))
