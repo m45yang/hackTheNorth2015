@@ -4,4 +4,3 @@ praw
 statistics
 twilio
 pymongo
-gevent
