@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, session, g, redirect, url_for, abort, \
 	 render_template, flash
+from flask.ext.uwsgi_websocket import GeventWebSocket
 from twilio import twiml
 import pymongo
 from pymongo import MongoClient
@@ -10,6 +11,7 @@ import praw
 import statistics
  
 app = Flask(__name__)
+websocket = GeventWebSocket(app)
 
 #intialize mongoDB client
 mongo = MongoClient('mongodb://localhost:27017/')
@@ -67,6 +69,17 @@ def sms():
 	messages.insert_one(data)
 
 	return str(response)
+
+@app.route('/test_ws', methods=['GET'])
+def test_ws():
+	return render_template('test.html')
+
+@websocket.route('/echo')
+def echo(ws):
+    while True:
+        msg = ws.receive()
+        if msg == "fuck!":
+            ws.send("fuck you too!")
 
 
 
