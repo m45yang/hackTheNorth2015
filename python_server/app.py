@@ -60,11 +60,11 @@ def sms():
 	value = indicoio.sentiment_hq(body)
 	print(value)
 	response.message("You sent: {0}\nSentiment analysis: {1}".format(body, value))
-	object = {
+	data = {
 		"text": body,
 		"value": value
 	}
-	messages.insert_one(object)
+	messages.insert_one(data)
 
 	return str(response)
 
