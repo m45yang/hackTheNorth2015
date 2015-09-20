@@ -64,9 +64,15 @@ def sms():
 	print('here2')
 	return str(response)
 
-# @app.route('/test_ws', methods=['GET'])
-# def test_ws():
-# 	return render_template('test.html')
+@app.route("/test_check", methods=['GET','POST'])
+def test_check():
+	if request.method == 'POST':
+		print request.form.getlist('reddit')
+	return render_template('test_check.html')
+
+@app.route('/test_ws', methods=['GET'])
+def test_ws():
+	return render_template('test.html')
 
 # @websocket.route('/echo')
 # def echo(ws):
