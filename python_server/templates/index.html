@@ -53,21 +53,15 @@
 						<!-- form section (ADDINPUT.JS) -->
 							<div class="form-group">
 								<form action="{{ url_for('search') }}" method="POST">
-									<div id="dynamicInput">
-										<label for="searchName">Search Name</label>
-										<input type="text" class="form-control" name="searchName" required/>
-										<div class="checkbox">
-										  <input type="checkbox" value=""><label><i class="fa fa-reddit"></i> Reddit</label>
-										</div>
-										<div class="checkbox">
-										  <input type="checkbox" value=""><label><i class="fa fa-twitter"></i> Twitter</label>
-										</div>
-									</div>
+									<label for="searchName">Search Name</label>
+									<input type="text" class="form-control" name="searchName" required/>
+									<label><i class="fa fa-reddit"></i> Reddit</label>
+								  <label><i class="fa fa-twitter"></i> Twitter</label>
+									<button id="searchSubmit" type="submit" class="btn btn-danger btn-lg btn-block mt25"> Submit! </button>
 									<div id="resultText" class="text-center" style="display:none"> 
 										<h3>Your search returned a sentiment value of:</h3>
 									</div>
 									<div id="result" class="text-center" style="display:none"></div>
-									<button id="searchSubmit" type="submit" class="btn btn-danger btn-lg btn-block mt25">Sentimentalize!</button>
 								</form>
 							</div>
 						</div>
@@ -91,6 +85,16 @@
 				</div>
 
 			</div>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-lg-offset-3">
+					<a src="graphs(updated)/graph Pages/animatedgraph.html"Graph View</a>
+						<div id="animated-graph" style="width:600px;height:300px"></div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 
 	</body>
@@ -104,5 +108,7 @@
 	<!-- script -->
 	<script src="/static/js/jquery-1.11.3.min.js"></script>
 	<script src="/static/js/jquery-ui.min.js"></script>
-	<script src="/static/js/addInput.js" language="Javascript" type="text/javascript"></script>
+	<script src="/static/js/addInput.js"></script>
+	<script src="/graphs/js/Multi-Data.js"></script>
+	<script src="/graphs/displaygraph.js"></script>
 </html>
