@@ -7,12 +7,15 @@ $(document).ready(function() {
 		$(this).text('Loading...');
 
 		var searchName = $('input[name="searchName"]').val();
-
+		var reddit = $('input[name="reddit"]').val();
+		var twitter = $('input[name="twitter"]').val();
 		$.ajax({
 			url: "/search",
 			type: "post",
 			data: {
-				searchName : searchName
+				searchName : searchName,
+				"reddit" : searchName,
+				"twitter" : twitter
 			},
 			success: function(result) {
 				$("#resultText").fadeIn();

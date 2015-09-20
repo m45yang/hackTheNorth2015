@@ -29,6 +29,8 @@ def home():
 @app.route("/search", methods=['POST'])
 def search():
 	searchName = request.form['searchName']
+	reddit = request.form.get('reddit', default=False, type=bool)
+	twitter = request.form.get('twitter', default=False, type=bool)
 	r = praw.Reddit(user_agent='sentimenter')
 	submissions = r.search(searchName)
 	score = []
