@@ -5,3 +5,4 @@ statistics
 twilio
 pymongo
 gevent
+Flask-uWSGI-WebSocket
