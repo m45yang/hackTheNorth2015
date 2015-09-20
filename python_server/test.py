@@ -28,8 +28,6 @@ print("type in the masterword")
 masterWord = input("")
 #string sentance segment
 totalString = "I love Facebook when it works. I also think the messenger app is really good. Facebook is good "
-#totalString = """I thoroughly enjoyed the movie, only a few annoyances with it. I wish they had gone into the fact that the guy (who's name escapes me right now) who said all the oxygen bottles were empty near the top actually had a broken tester, and that those bottles were full.
-#I'm glad they didn't make anyone out as a villain, and that it truly was man versus nature."""
 #spilt totalString by each sentance
 sentenceArray = totalString.split(". ")
 newSentenceArray = []
